@@ -1,0 +1,34 @@
+#+title: Design
+
+* Overview
+My compiler will begin by reading each line from the custom language file and parsing each into a temporary Python file. The temporary file will then be executed. I will make multiple functions each handling the functionality of different keywords.
+
+* Completed Functions
+These are the functions that I have already implemented into my compiler.
+
+** For
+This function will initialize a variable, and construct a while loop in the temporary Python file. The function will then take each line in the loop and call the ParseLine function that is described below on them. The function will then add the iteration at the end of the while loop when it finds the closing curly bracket.
+
+** SetVar
+This function basically just copy and pastes a line from the custom language file to the temporary Python file just excluding the semicolon at the end. This is because the syntax (as explained in the project requirements) is very similar to what Python has.
+
+** MakeIndent
+This function just writes the specified number of indents in the temporary Python file. This will be used for the block of code inside of an if statement or a loop.
+
+** ParseLine
+This function just determines which of the above functions to call by checking for keywords in each line of the custom language file and calling the function that is supposed to handle that.
+For example, if there is ~for~ in a line, then the program will call the for function that is described above.
+
+* To Be Created Functions
+These are a list of functions that I will implement in the future with brief descriptions.
+
+** While
+This function first adds the condition after the while keyword with a colon at the end. Then it takes each line in the block and parses it using the ParseLine function. When there is a closing curly bracket, then the function ends.
+
+** Fn
+This function will handle creating functions. In the temporary Python file, the name of the function will be written in after the ~def~ keyword with the parameters and a colon after (basically the whole line gets copy-pasted in except for ~fn~ being replaced by ~def~). Then each of the lines after will be passed into the ParseLine function until a closing curly bracket is found which will then end the function.
+
+** SyntaxChecker
+This function will check if a line is written correctly. It will go through each word in the line and check whether it is following the syntax that is explained in the requirements.
+
+There is definitely going to be more functions than the ones described here, but I am still indecisive about how I am going to expand this program.
