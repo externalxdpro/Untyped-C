@@ -23,37 +23,10 @@ compFile = open(compPath, "w")
 numIndents = 0
 
 
-def ParseLine(line):
-    if "for" in line:
-        if ":" in line:
-            ForEach(line)
-        else:
-            For(line)
-    elif "while" in line:
-        While(line)
-    elif "fn" in line:
-        Function(line)
-    elif line != "":
-        Copy(line)
-
-
 def MakeIndent():
     global numIndents
     indent = "    "
     return indent * numIndents
-
-
-def ParseBlock(line):
-    global numIndents
-    while line != "}":
-        if line == "{":
-            line = origFile.readline().strip()
-            continue
-        else:
-            # compFile.write(MakeIndent(numIndents))
-            ParseLine(line)
-            compFile.write("\n")
-        line = origFile.readline().strip()
 
 
 def Copy(line):
@@ -129,11 +102,35 @@ def Function(line):
     numIndents -= 1
 
 
+def ParseLine(line):
+    if "for" in line:
+        if ":" in line:
+            ForEach(line)
+        else:
+            For(line)
+    elif "while" in line:
+        While(line)
+    elif "fn" in line:
+        Function(line)
+    elif line != "":
+        Copy(line)
+
+
+def ParseBlock(line):
+    global numIndents
+    while line != "}":
+        if line == "{":
+            line = origFile.readline().strip()
+            continue
+        else:
+            # compFile.write(MakeIndent(numIndents))
+            ParseLine(line)
+            compFile.write("\n")
+        line = origFile.readline().strip()
+
+
 # parse each line from the original file
 for line in origFile:
-    # for i in SyntaxChecker.Tokenizer(line):
-    #     print(i.type, i.val, end=", ")
-    # print()
     ParseLine(line)
 
 

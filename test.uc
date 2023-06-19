@@ -4,7 +4,7 @@ print("test")
 
 for (i = 0, i < 1, i += 1)
 {
-    for (j = 0, j < 13, j += 2)
+    for (j = 0, j > -1, j -= 2)
     {
         print(j)
     }
@@ -18,7 +18,7 @@ for (i : nums)
 }
 
 j = 0
-while (j < 10)
+while (j != 10)
 {
     print(j)
     j += 1
