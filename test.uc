@@ -4,6 +4,10 @@ print("test")
 
 for (i = 0, i < 1, i += 1)
 {
+    for (j = 0, j < 13, j += 2)
+    {
+        print(j)
+    }
     print("boi")
 }
 

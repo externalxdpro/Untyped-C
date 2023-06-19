@@ -4,6 +4,7 @@
 # imports
 import os
 import sys
+
 # set path of original file from command line args
 n = len(sys.argv)
 if n > 1:
@@ -18,94 +19,123 @@ compPath = r"temp.py"
 origFile = open(origPath, "r")
 compFile = open(compPath, "w")
 
+# set num of indents
+numIndents = 0
 
-def ParseLine(line, numIndents=0):
+
+def ParseLine(line):
     if "for" in line:
         if ":" in line:
-            ForEach(line, numIndents)
+            ForEach(line)
         else:
-            For(line, numIndents)
+            For(line)
     elif "while" in line:
-        While(line, numIndents)
+        While(line)
     elif "fn" in line:
-        Function(line, numIndents)
+        Function(line)
     elif line != "":
-        Copy(line, numIndents)
+        Copy(line)
 
 
-def MakeIndent(numIndents):
+def MakeIndent():
+    global numIndents
     indent = "    "
     return indent * numIndents
 
 
-def ParseBlock(line, numIndents=0):
+def ParseBlock(line):
+    global numIndents
     while line != "}":
         if line == "{":
             line = origFile.readline().strip()
             continue
         else:
-            compFile.write(MakeIndent(numIndents))
+            # compFile.write(MakeIndent(numIndents))
             ParseLine(line)
             compFile.write("\n")
         line = origFile.readline().strip()
 
 
-def Copy(line, numIndents=0):
-    compFile.write(MakeIndent(numIndents) + line)
+def Copy(line):
+    global numIndents
+    compFile.write(MakeIndent() + line)
 
 
-def For(line, numIndents=0):
+def For(line):
+    global numIndents
+
     params = line[line.index("(") + 1:line.index(")")].split(",")
     for i in range(3):
         params[i] = params[i].strip()
 
     # compFile = open(compPath, "a")
     # with open(compPath, "a") as compFile:
-    compFile.write(params[0] + "\n")
-    compFile.write(f"while {params[1]}:\n")
+    compFile.write(MakeIndent() + params[0] + "\n")
+    compFile.write(MakeIndent() + f"while {params[1]}:\n")
+
     numIndents += 1
 
     line = origFile.readline().strip()
-    ParseBlock(line, numIndents)
-    compFile.write(MakeIndent(numIndents) + params[2] + "\n")
+    ParseBlock(line)
+    compFile.write(MakeIndent() + params[2] + "\n")
+
+    numIndents -= 1
 
 
-def ForEach(line, numIndents=0):
+def ForEach(line):
+    global numIndents
+
     params = line[line.index("(") + 1:line.index(")")].strip().split(":")
     for i in range(2):
         params[i] = params[i].strip()
 
     # with open(compPath, "a") as compFile:
-    compFile.write(f"for {params[0]} in {params[1]}:\n")
+    compFile.write(MakeIndent() + f"for {params[0]} in {params[1]}:\n")
+
     numIndents += 1
 
     line = origFile.readline().strip()
-    ParseBlock(line, numIndents)
+    ParseBlock(line)
+
+    numIndents -= 1
 
 
-def While(line, numIndents=0):
+def While(line):
+    global numIndents
+
     param = line[line.index("(") + 1:line.index(")")].strip()
 
-    compFile.write(f"while {param}:\n")
+    compFile.write(MakeIndent() + f"while {param}:\n")
+
     numIndents += 1
 
     line = origFile.readline().strip()
-    ParseBlock(line, numIndents)
+    ParseBlock(line)
+
+    numIndents -= 1
 
 
-def Function(line, numIndents=0):
+def Function(line):
+    global numIndents
     nameParams = line[line.index(" "):line.index(")") + 1].strip()
 
     compFile.write(f"def {nameParams}:\n")
+
     numIndents += 1
 
     line = origFile.readline().strip()
-    ParseBlock(line, numIndents)
+    ParseBlock(line)
+
+    numIndents -= 1
 
 
 # parse each line from the original file
 for line in origFile:
+    # for i in SyntaxChecker.Tokenizer(line):
+    #     print(i.type, i.val, end=", ")
+    # print()
     ParseLine(line)
+
 
 # close the original and compiled files
 origFile.close()
