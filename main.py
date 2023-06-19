@@ -4,6 +4,7 @@
 # imports
 import os
 import sys
+import SyntaxChecker
 
 # set path of original file from command line args
 n = len(sys.argv)
@@ -131,6 +132,7 @@ def ParseBlock(line):
 
 # parse each line from the original file
 for line in origFile:
+    SyntaxChecker.SyntaxChecker(line)
     ParseLine(line)
 
 
