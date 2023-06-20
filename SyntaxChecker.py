@@ -1,5 +1,4 @@
-# Sakib Ahmed
-# A tokenizer and kinda trash syntax checker
+"""A tokenizer and kinda trash syntax checker."""
 
 # imports
 import string
@@ -8,14 +7,16 @@ import string
 # An object containing data for a token
 # Has a type and a value
 class Token():
+    """Type for a token."""
+
     def __init__(self, type: str, val: str):
+        """Initialize a token with type and value."""
         self.type = type
         self.val = val
 
 
 def Tokenizer(line):
-    """Tokenize the inputted line"""
-
+    """Tokenize the inputted line."""
     # create an empty list of the tokens in the line
     tokens = []
 
@@ -150,6 +151,7 @@ def Tokenizer(line):
 
 
 def SyntaxChecker(line):
+    """Check syntax for a line."""
     # get a list of tokens for the passed-in line
     tokens = Tokenizer(line)
 

@@ -26,7 +26,6 @@ numIndents = 0
 
 def MakeIndent():
     """Create the specified number of indents."""
-
     # allow access to the global variable
     global numIndents
     # set the number of spaces in one indent
@@ -37,7 +36,6 @@ def MakeIndent():
 
 def Copy(line):
     """Directly copy a line from original file to compiled file."""
-
     # allow access to the global variable
     global numIndents
     # write the line from the original file to the compiled file
@@ -47,7 +45,6 @@ def Copy(line):
 
 def For(line):
     """Convert for loop in original file to compiled file."""
-
     # allow access to the global variable
     global numIndents
 
@@ -80,7 +77,6 @@ def For(line):
 
 def ForEach(line):
     """Convert for-each loop in original file to compiled file."""
-
     # allow access to the global variable
     global numIndents
 
@@ -108,7 +104,6 @@ def ForEach(line):
 
 def While(line):
     """Convert while loop in original file to compiled file."""
-
     # allow access to the global variable
     global numIndents
 
@@ -132,7 +127,6 @@ def While(line):
 
 def Function(line):
     """Convert function declaration in original file to compiled file."""
-
     # allow access to the global variable
     global numIndents
     # get the name of the function and the parameters of the function
@@ -154,8 +148,7 @@ def Function(line):
 
 
 def ParseLine(line):
-    """Parse the inputted line depending on what it contains"""
-
+    """Parse the inputted line depending on what it contains."""
     # depending on the contents of the line, run the corresponding function
     if "for" in line:
         if ":" in line:
@@ -171,8 +164,7 @@ def ParseLine(line):
 
 
 def ParseBlock(line):
-    """Parse the body of a for, for-each, while and function declaration"""
-
+    """Parse the body of a for, for-each, while and function declaration."""
     # allow access to the global variable
     global numIndents
 
