@@ -191,7 +191,6 @@ def SyntaxChecker(line):
                 # if there is, there is a syntax error
                 for i in range(0, 5):
                     if tokens[i].type != syntax[i]:
-                        print(tokens[i].type, tokens[i].val)
                         raise SyntaxError(f"Incorrect syntax in line: \"{line}\"")
             else:
                 if len(tokens) != 14 and len(tokens) != 15:
@@ -205,7 +204,6 @@ def SyntaxChecker(line):
                 # if there is, there is a syntax error
                 for i in range(0, 13):
                     if tokens[i].type != syntax[i]:
-                        print(tokens[i].type, tokens[i].val)
                         raise SyntaxError(f"Incorrect syntax in line: \"{line}\"")
         # checks syntax for a while loop
         elif first.val == "while":
@@ -219,5 +217,22 @@ def SyntaxChecker(line):
             # if there is, there is a syntax error
             for i in range(0, 5):
                 if tokens[i].type != syntax[i]:
-                    print(tokens[i].type, tokens[i].val)
                     raise SyntaxError(f"Incorrect syntax in line: \"{line}\"")
+        elif first.val == "fn":
+            # the number of tokens must be more than 4
+            # (the list of tokens would have to be at least
+            # fn, name of function, opening bracket, closing bracket)
+            if len(tokens) < 4:
+                raise SyntaxError(f"Incorrect syntax in line: \"{line}\"")
+            # specifies the order of the tokens
+            syntax = ["name", "name", "paren", "paren"]
+
+            # loop through the first 3 tokens and check if there are any inequalities
+            # if there is, there is a syntax error
+            for i in range(3):
+                if tokens[i].type != syntax[i]:
+                    raise SyntaxError(f"Incorrect syntax in line: \"{line}\"")
+            # the last token should be a parentheses
+            # if it isn't, there is a syntax error
+            if tokens[len(tokens)] != syntax[3]:
+                raise SyntaxError(f"Incorrect syntax in line: \"{line}\"")
