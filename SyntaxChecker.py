@@ -234,5 +234,5 @@ def SyntaxChecker(line):
                     raise SyntaxError(f"Incorrect syntax in line: \"{line}\"")
             # the last token should be a parentheses
             # if it isn't, there is a syntax error
-            if tokens[len(tokens)] != syntax[3]:
+            if tokens[len(tokens) - 1].type != syntax[3]:
                 raise SyntaxError(f"Incorrect syntax in line: \"{line}\"")
