@@ -43,6 +43,11 @@ def Copy(line):
     compFile.write(MakeIndent() + line)
 
 
+def Comment(line):
+    comment = line[3:]
+    compFile.write(MakeIndent() + "#" + comment)
+
+
 def For(line):
     """Convert for loop in original file to compiled file."""
     # allow access to the global variable
@@ -159,6 +164,8 @@ def ParseLine(line):
         While(line)
     elif "fn" in line:
         Function(line)
+    elif len(line) > 0 and line[:2] == "//":
+        Comment(line)
     elif line != "":
         Copy(line)
 

@@ -50,16 +50,16 @@ def Tokenizer(line):
             # it would be an assignment if there is no second equals sign
             else:
                 type = "assignment"
-        # if the character is a plus/minus, the type can be
+        # if the character is a plus/minus/asterisk, the type can be
         # assignment or number depending on what characters follow it
-        elif char == "+" or char == "-":
+        elif char == "+" or char == "-" or char == "*":
             # if there is an equals sign after, it is an assignment operator
             if cur != len(line) - 1 and line[cur + 1] == "=":
                 cur += 1
                 char += line[cur]
                 type = "assignment"
             # if there is a number after, the type is number
-            elif cur != len(line) - 1 and line[cur + 1].isdigit():
+            elif cur != "*" and cur != len(line) - 1 and line[cur + 1].isdigit():
                 num = char
                 cur += 1
                 char = line[cur]
@@ -71,6 +71,21 @@ def Tokenizer(line):
                 tokens.append(Token("number", num))
                 continue
             # if there is nothing after, the type is math
+            else:
+                type = "math"
+        # if the character is a slash, then the line should be
+        # a comment, an assignment, or a math operator
+        elif char == "/":
+            # if the next character is a slash, then the line is a comment
+            if cur != len(line) - 1 and line[cur + 1] == "/":
+                tokens.append(Token("comment", line.strip()))
+                break
+            # if the next character is an equals sign, then it is assignment
+            elif cur != len(line) - 1 and line[cur + 1] == "=":
+                cur += 1
+                char += line[cur]
+                type = "assignment"
+            # if there is neither of those after, then the type is math
             else:
                 type = "math"
         # if the character is a greater/less than sign

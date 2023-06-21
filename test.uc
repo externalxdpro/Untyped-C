@@ -1,5 +1,6 @@
 i = 40
 
+// this is a comment
 print("test")
 
 for (i = 0, i < 1, i += 1)
