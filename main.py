@@ -40,7 +40,7 @@ def Copy(line):
     global numIndents
     # write the line from the original file to the compiled file
     # with indents before it
-    compFile.write(MakeIndent() + line)
+    compFile.write(MakeIndent() + line + "\n")
 
 
 def Comment(line):
@@ -192,8 +192,12 @@ def ParseBlock(line):
 
 # check syntax and parse each line from the original file
 for line in origFile:
-    SyntaxChecker.SyntaxChecker(line)
-    ParseLine(line)
+    commands = line.split(";")
+
+    for i in commands:
+        i = i.strip() + " "
+        SyntaxChecker.SyntaxChecker(i)
+        ParseLine(i)
 
 # close the original and compiled file
 origFile.close()

@@ -31,3 +31,5 @@ fn test(num, num2)
 }
 
 test(1, 2)
+
+print("one thing"); print("another thing")
