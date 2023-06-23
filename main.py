@@ -209,3 +209,29 @@ with open("temp.py") as file:
 
 # remove the temporary file
 os.remove("temp.py")
+
+
+# tests
+"""
+$ python3 main.py example.uc
+
+0
+boi
+1
+2
+3
+4
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+3
+one thing
+another thing
+"""
