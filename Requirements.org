@@ -3,7 +3,7 @@
 * Overview
 For the final project, I will be creating my own programming language, called UC, or Untyped C. This language, as can be determined by the name, will be similar to C/C++ (because I have no creativity) but with weak typing. Then a Python program will translate that language into Python and execute it.
 
-To use the program just run main.exe <name of file>
+To use the program just run main.py <name of file>
 
 * Syntax
 ** Variable Initialization
