@@ -10,7 +10,7 @@ for (i = 0, i < 1, i += 1)
     {
         print(j)
     }
-    print("boi")
+    print("end of inner loop")
 }
 
 nums = [1, 2, 3, 4]

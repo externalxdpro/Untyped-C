@@ -85,16 +85,16 @@ while (i < 500) {
 }
 #+end_src
 ** Functions
-Since there is no explicit typing, the syntax will slightly differ from C. Instead of starting the line with the return type of the function, function declaration will consist of the fn keyword.
+Since there is no explicit typing, the syntax will slightly differ from C. Instead of starting the line with the return type of the function, function declaration will start with the fn keyword.
 #+begin_src C
-fn NameOfFunction (/*params*/) {
+fn NameOfFunction(/*params*/) {
     // code to execute in function
 }
 #+end_src
 
 Example:
 #+begin_src C
-fn add (num1, num2) {
+fn add(num1, num2) {
     return num1 + num2;
 }
 #+end_src
@@ -113,7 +113,7 @@ for (i = 0, i < 1, i += 1)
     {
         print(j)
     }
-    print("boi")
+    print("end of inner loop")
 }
 
 nums = [1, 2, 3, 4]
